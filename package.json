@@ -1,0 +1,23 @@
+{
+  "name": "projeto-labook-backend",
+  "version": "1.0.0",
+  "description": "Mini api de rede social",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node ./build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karinadarc/projeto-labook-backend.git"
+  },
+  "author": "Karina Darc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karinadarc/projeto-labook-backend/issues"
+  },
+  "homepage": "https://github.com/karinadarc/projeto-labook-backend#readme",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.2"
+  }
+}
