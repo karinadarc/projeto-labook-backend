@@ -5,7 +5,7 @@ CREATE TABLE users (
 	email TEXT NOT NULL,
 	password TEXT NOT NULL,
 	role TEXT NOT NULL,
-	created_at TEXT  NOT NULL DEFAULT (DATETME())
+	created_at TEXT  NOT NULL DEFAULT (DATETIME())
 );
 
 -- CRIA TABELA POSTS
