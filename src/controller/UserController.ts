@@ -1,15 +1,13 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { UserBussiness } from "../bussiness/UserBussiness";
-import { BaseController } from "./BaseController";
 import { HTTP_STATUS } from "../constants/HttpStatus";
 import { SignupSchema } from "../dtos/user/signup.dto";
+import { LoginSchema } from "../dtos/user/login.dto";
 
-export class UserController extends BaseController {
-  constructor(private userBussiness: UserBussiness) {
-    super();
-  }
+export class UserController {
+  constructor(private userBussiness: UserBussiness) {}
 
-  public signup = async (req: Request, res: Response) => {
+  public signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const signupInput = SignupSchema.parse({
         name: req.body.name,
@@ -21,7 +19,21 @@ export class UserController extends BaseController {
 
       return res.status(HTTP_STATUS.CREATED).send(output);
     } catch (error) {
-      return this.responseError(error as Error, res);
+      next(error);
+    }
+  };
+
+  public login = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const loginInput = LoginSchema.parse({
+        email: req.body.email,
+        password: req.body.password,
+      });
+
+      const output = await this.userBussiness.login(loginInput);
+      return res.status(HTTP_STATUS.OK).send(output);
+    } catch (error) {
+      next(error);
     }
   };
 }
