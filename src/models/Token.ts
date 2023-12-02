@@ -1,10 +1,9 @@
-export enum USER_ROLES {
-    NORMAL = "NORMAL",
-    ADMIN = "ADMIN"
-}
+import { USER_ROLES } from "./User";
 
 export interface TokenPayload {
     id: string,
     name: string,
     role: USER_ROLES
 }
+
+export type Token = string
