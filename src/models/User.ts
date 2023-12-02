@@ -1,10 +1,12 @@
+import { UUID } from "../types";
+
 export enum USER_ROLES {
   NORMAL = "NORMAL",
   ADMIN = "ADMIN",
 }
 
 export interface UserDBModel {
-  id: string;
+  id: UUID;
   name: string;
   email: string;
   password: string;
@@ -13,7 +15,7 @@ export interface UserDBModel {
 }
 
 export interface UserModel {
-  id: string;
+  id: UUID;
   name: string;
   email: string;
   role: USER_ROLES;
@@ -22,7 +24,7 @@ export interface UserModel {
 
 export class User {
   constructor(
-    private id: string,
+    private id: UUID,
     private name: string,
     private email: string,
     private password: string,
@@ -30,11 +32,11 @@ export class User {
     private createdAt: string
   ) {}
 
-  public getId(): string {
+  public getId(): UUID {
     return this.id;
   }
 
-  public setId(value: string): void {
+  public setId(value: UUID): void {
     this.id = value;
   }
 

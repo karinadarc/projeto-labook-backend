@@ -1,5 +1,7 @@
+import { UUID } from "../types";
+
 export interface PostDbModel {
-  id: string;
+  id: UUID;
   creator_id: string;
   content: string;
   likes: number;
@@ -13,7 +15,7 @@ export interface PostWithCreatorDbModel extends PostDbModel {
 }
 
 export interface PostModel {
-  id: string;
+  id: UUID;
   content: string;
   likes: number;
   dislikes: number;
@@ -27,7 +29,7 @@ export interface PostModel {
 
 export class Post {
   constructor(
-    private id: string,
+    private id: UUID,
     private creatorId: string,
     private content: string,
     private likes: number,
@@ -37,11 +39,11 @@ export class Post {
     private creatorName?: string | undefined
   ) {}
 
-  getId(): string {
+  getId(): UUID {
     return this.id;
   }
 
-  setId(id: string): void {
+  setId(id: UUID): void {
     this.id = id;
   }
 

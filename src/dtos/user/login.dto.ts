@@ -1,5 +1,5 @@
 import z from "zod";
-import { Token } from "../../models/Token";
+import { Token } from "../../types";
 
 export interface LoginInputDTO {
   email: string;
