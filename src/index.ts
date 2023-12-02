@@ -1,6 +1,11 @@
-import express, { Request, Response} from 'express';
-import cors from 'cors';
-import { addRoutes } from './router';
+import express, { Request, Response } from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import { addRoutes } from "./router";
+import { errorHandler } from "./middleware";
+import { HTTP_STATUS } from "./constants/HttpStatus";
+
+dotenv.config();
 
 const app = express();
 
@@ -9,10 +14,12 @@ app.use(cors());
 
 addRoutes(app);
 
-app.listen(3003, () => {
-    console.log("Servidor rodando na porta 3003");
+app.use(errorHandler);
+
+app.listen(Number(process.env.PORT) || 3003, () => {
+  console.log(`Servidor rodando na porta ${Number(process.env.PORT) || 3003}`);
 });
 
-app.get("/ping", (req: Request, res: Response) => {
-  res.send("Pong!");
+app.use(function (req, res, next) {
+  res.status(HTTP_STATUS.NOT_FOUND).send({ error: "Não Encontrado." });
 });
