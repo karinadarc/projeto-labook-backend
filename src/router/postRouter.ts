@@ -13,6 +13,7 @@ export const authPostRouter = (authMiddleware: AuthMiddleware): Router => {
     new PostBussiness(new PostDatabase(), new IdService())
   );
 
+  postRouter.get("/", controller.getPosts);
   postRouter.post("/", controller.create);
 
   return postRouter;

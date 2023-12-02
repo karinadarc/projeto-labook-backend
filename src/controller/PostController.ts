@@ -23,4 +23,14 @@ export class PostController {
       next(error);
     }
   };
+
+  public getPosts = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = req.loggedUser as UserModel;
+      const output = await this.postBussiness.getPosts(user);
+      return res.status(HTTP_STATUS.OK).send(output);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -1,6 +1,10 @@
-import { knex } from "knex"
+import { knex } from "knex";
 
 export abstract class BaseDatabase {
+  readonly TABLE_USERS = "users";
+  readonly TABLE_POSTS = "posts";
+  readonly TABLE_LIKES_DISLIKES = "likes_dislikes";
+
   protected static connection = knex({
     client: "sqlite3",
     connection: {
@@ -11,8 +15,8 @@ export abstract class BaseDatabase {
       min: 0,
       max: 1,
       afterCreate: (conn: any, cb: any) => {
-        conn.run("PRAGMA foreign_keys = ON", cb)
-      }
-    }
-  })
+        conn.run("PRAGMA foreign_keys = ON", cb);
+      },
+    },
+  });
 }

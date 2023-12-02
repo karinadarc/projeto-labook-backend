@@ -3,6 +3,7 @@ import {
   CreatePostInputDTO,
   CreatePostOutputDTO,
 } from "../dtos/post/create.dto";
+import { GetPostsOutputDTO } from "../dtos/post/get.dto";
 import { Post } from "../models/Post";
 import { UserModel } from "../models/User";
 import { IdService } from "../services/IdService";
@@ -30,5 +31,11 @@ export class PostBussiness {
 
     const id = await this.postDatabase.addPost(post.toDatabaseModel());
     return { id };
+  };
+
+  public getPosts = async (user: UserModel): Promise<GetPostsOutputDTO> => {
+    const result = await this.postDatabase.getAllPosts();
+
+    return result.map((post) => Post.fromDatabaseModel(post).toBusinessModel());
   };
 }

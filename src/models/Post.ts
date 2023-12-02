@@ -8,6 +8,23 @@ export interface PostDbModel {
   updated_at: string;
 }
 
+export interface PostWithCreatorDbModel extends PostDbModel {
+  creator_name: string;
+}
+
+export interface PostModel {
+  id: string;
+  content: string;
+  likes: number;
+  dislikes: number;
+  createdAt: string;
+  updatedAt: string;
+  creator: {
+    creatorId: string;
+    creatorName?: string;
+  };
+}
+
 export class Post {
   constructor(
     private id: string,
@@ -16,7 +33,8 @@ export class Post {
     private likes: number,
     private dislikes: number,
     private createdAt: string,
-    private updatedAt: string
+    private updatedAt: string,
+    private creatorName?: string | undefined
   ) {}
 
   getId(): string {
@@ -75,6 +93,14 @@ export class Post {
     this.updatedAt = updatedAt;
   }
 
+  public getCreatorName(): string | undefined {
+    return this.creatorName;
+  }
+
+  public setCreatorName(name: string): void {
+    this.creatorName = name;
+  }
+
   toDatabaseModel(): PostDbModel {
     return {
       id: this.id,
@@ -84,6 +110,41 @@ export class Post {
       dislikes: this.dislikes,
       created_at: this.createdAt,
       updated_at: this.updatedAt,
+    };
+  }
+
+  public static fromDatabaseModel(
+    model: PostDbModel | PostWithCreatorDbModel
+  ): Post {
+    const post = new Post(
+      model.id,
+      model.creator_id,
+      model.content,
+      model.likes,
+      model.dislikes,
+      model.created_at,
+      model.updated_at
+    );
+
+    if ("creator_name" in model) {
+      post.setCreatorName(model.creator_name);
+    }
+
+    return post;
+  }
+
+  public toBusinessModel(): PostModel {
+    return {
+      id: this.id,
+      content: this.content,
+      likes: this.likes,
+      dislikes: this.dislikes,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      creator: {
+        creatorId: this.creatorId,
+        creatorName: this.creatorName,
+      },
     };
   }
 }
