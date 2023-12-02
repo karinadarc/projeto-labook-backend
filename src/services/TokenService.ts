@@ -10,4 +10,9 @@ export class TokenService {
       expiresIn: process.env.JWT_EXPIRES_IN || "1h",
     });
   }
+
+  public decodeToken(token: Token): TokenPayload {
+    const payload = jwt.verify(token, process.env.JWT_KEY as string);
+    return payload as TokenPayload;
+  }
 }

@@ -99,4 +99,14 @@ export class User {
       model.created_at
     );
   }
+
+  public toBusinessModel(): UserModel {
+    return {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+      role: this.role,
+      createdAt: this.createdAt,
+    };
+  }
 }

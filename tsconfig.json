@@ -9,6 +9,7 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
     "noEmitOnError": true,
-    "strict": true
+    "strict": true,
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   }
 }
