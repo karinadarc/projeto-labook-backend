@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
-import { Token } from "../models/Token";
+import { UUID } from "../types";
 
 export class IdService {
-  public newId = (): Token => v4();
+  public newId = (): UUID => v4();
 }

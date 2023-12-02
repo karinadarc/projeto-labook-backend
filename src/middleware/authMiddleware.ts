@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { TokenService } from "../services/TokenService";
-import { UnauthorizedError } from "../errors";
-import { Token } from "../models/Token";
 import { UserDatabase } from "../database/UserDatabase";
+import { UnauthorizedError } from "../errors";
 import { User, UserModel } from "../models/User";
+import { TokenService } from "../services/TokenService";
+import { Token } from "../types";
 
 export class AuthMiddleware {
   constructor(
