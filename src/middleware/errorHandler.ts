@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { HTTP_STATUS } from "../constants/HttpStatus";
 import { BaseError } from "../errors";
 import { ZodError } from "zod";
+import { JsonWebTokenError } from "jsonwebtoken";
 
 export const errorHandler = (
   error: Error,
@@ -9,16 +10,19 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  console.error("Error:", error.message);
+  console.error("ERROR: %s - %s", error.name, error.message);
   if (error instanceof ZodError) {
     return res
       .status(HTTP_STATUS.BAD_REQUEST)
       .send({ error: "Requisição inválida", errors: error.issues });
-    next(error);
   }
 
   if (error instanceof BaseError) {
     return res.status(error.statusCode).send({ error: error.message });
+  }
+
+  if (error instanceof JsonWebTokenError) {
+    return res.status(HTTP_STATUS.UNAUTHORIZED).send({ error: error.message });
   }
 
   return res

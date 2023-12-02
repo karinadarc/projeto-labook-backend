@@ -17,4 +17,12 @@ export class UserDatabase extends BaseDatabase {
       .where({ email })
       .first();
   };
+
+  public getById = async (id: string): Promise<UserDBModel | undefined> => {
+    return await BaseDatabase.connection
+      .select()
+      .from<UserDBModel>(this.TABLE_USERS)
+      .where({ id })
+      .first();
+  };
 }
