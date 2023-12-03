@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { UserBussiness } from "../bussiness/UserBussiness";
 import { HTTP_STATUS } from "../constants/HttpStatus";
-import { SignupSchema } from "../dtos/user/signup.dto";
 import { LoginSchema } from "../dtos/user/login.dto";
+import { SignupSchema } from "../dtos/user/signup.dto";
 
 export class UserController {
   constructor(private userBussiness: UserBussiness) {}
@@ -15,7 +15,7 @@ export class UserController {
         password: req.body.password,
       });
       const output = await this.userBussiness.signup(signupInput);
-      console.info("User created:", signupInput.name);
+      console.info("INFO: usuário criado: %s", signupInput.name);
 
       return res.status(HTTP_STATUS.CREATED).send(output);
     } catch (error) {
@@ -31,6 +31,7 @@ export class UserController {
       });
 
       const output = await this.userBussiness.login(loginInput);
+      console.info("INFO: Login efetuado: %s", loginInput.email);
       return res.status(HTTP_STATUS.OK).send(output);
     } catch (error) {
       next(error);
