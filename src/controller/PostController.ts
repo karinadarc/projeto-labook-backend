@@ -54,7 +54,7 @@ export class PostController {
         updateInput,
         req.loggedUser as UserModel
       );
-      console.info("INFO: post removido: %s", id);
+      console.info("INFO: post atualizado: %s", id);
       return res.status(HTTP_STATUS.NO_CONTENT).end();
     } catch (error) {
       next(error);
@@ -71,7 +71,7 @@ export class PostController {
 
       await this.postBussiness.deletePost(id, req.loggedUser as UserModel);
 
-      console.info("INFO: post deleted: %s", id);
+      console.info("INFO: post removido: %s", id);
       return res.status(HTTP_STATUS.NO_CONTENT).end();
     } catch (error) {
       next(error);
