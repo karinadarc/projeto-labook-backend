@@ -17,6 +17,7 @@ export const authPostRouter = (authMiddleware: AuthMiddleware): Router => {
   postRouter.post("/", controller.create);
   postRouter.put("/:id", controller.updatePost);
   postRouter.delete("/:id", controller.deletePost);
+  postRouter.put("/:id/like", controller.like);
 
   return postRouter;
 };
