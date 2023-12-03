@@ -1,4 +1,7 @@
+import dotenv from "dotenv";
 import { knex } from "knex";
+
+dotenv.config();
 
 export abstract class BaseDatabase {
   readonly TABLE_USERS = "users";
@@ -8,7 +11,7 @@ export abstract class BaseDatabase {
   protected static connection = knex({
     client: "sqlite3",
     connection: {
-      filename: "./src/database/labook.db",
+      filename: process.env.DB_FILE_PATH as string,
     },
     useNullAsDefault: true,
     pool: {

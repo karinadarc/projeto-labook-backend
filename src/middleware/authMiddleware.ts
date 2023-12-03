@@ -42,6 +42,6 @@ export class AuthMiddleware {
       return User.fromDatabaseModel(user).toBusinessModel();
     }
 
-    throw new UnauthorizedError("Usuário inexistente");
+    throw new UnauthorizedError("Usuário não autenticado.");
   }
 }

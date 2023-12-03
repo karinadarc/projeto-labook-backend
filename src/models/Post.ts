@@ -71,12 +71,34 @@ export class Post {
     this.likes = likes;
   }
 
+  increaseLikes(): void {
+    this.setLikes(this.getLikes() + 1);
+  }
+
+  decreaseLikes(): void {
+    if (this.getLikes() <= 0) {
+      throw new Error("Não é possível ter likes negativos");
+    }
+    this.setLikes(this.getLikes() - 1);
+  }
+
   getDislikes(): number {
     return this.dislikes;
   }
 
   setDislikes(dislikes: number): void {
     this.dislikes = dislikes;
+  }
+
+  increaseDislikes(): void {
+    this.setDislikes(this.getDislikes() + 1);
+  }
+
+  decreaseDislikes(): void {
+    if (this.getDislikes() <= 0) {
+      throw new Error("Não é possível ter Dislikes negativos");
+    }
+    this.setDislikes(this.getDislikes() - 1);
   }
 
   getCreatedAt(): string {
