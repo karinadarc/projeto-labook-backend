@@ -40,24 +40,24 @@ O Labook é uma rede social com o objetivo de promover a conexão e interação 
 
 - Endpoints
 
-  - [-] signup
-  - [-] login
-  - [-] create post
-  - [-] get posts
-  - [-] edit post
-  - [-] delete post
-  - [-] like / dislike post
+  - [x]signup
+  - [x]login
+  - [x]create post
+  - [x]get posts
+  - [x]edit post
+  - [x]delete post
+  - [x]like / dislike post
 
 - Autenticação e autorização
 
-  - [-] identificação UUID
-  - [-] senhas hasheadas com Bcrypt
-  - [-] tokens JWT
+  - [x]identificação UUID
+  - [x]senhas hasheadas com Bcrypt
+  - [x]tokens JWT
 
 - Código
-  - [-] POO
-  - [-] Arquitetura em camadas
-  - [-] Roteadores no Express
+  - [x]POO
+  - [x]Arquitetura em camadas
+  - [x]Roteadores no Express
 
 ## :rocket: Tecnologias
 
