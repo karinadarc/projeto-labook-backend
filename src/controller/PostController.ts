@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { PostBussiness } from "../bussiness/PostBussiness";
 import { HTTP_STATUS } from "../constants/HttpStatus";
 import { CreatePostSchema } from "../dtos/post/create.dto";
+import { UpdatePostSchema } from "../dtos/post/update.dto";
 import { UserModel } from "../models/User";
 
 export class PostController {
@@ -29,6 +30,30 @@ export class PostController {
       const user = req.loggedUser as UserModel;
       const output = await this.postBussiness.getPosts(user);
       return res.status(HTTP_STATUS.OK).send(output);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public updatePost = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const updateInput = UpdatePostSchema.parse({
+        content: req.body.content,
+      });
+
+      const id = req.params.id;
+
+      await this.postBussiness.updatePost(
+        id,
+        updateInput,
+        req.loggedUser as UserModel
+      );
+      console.info("INFO: post updated: %s", id);
+      return res.status(HTTP_STATUS.NO_CONTENT).end();
     } catch (error) {
       next(error);
     }

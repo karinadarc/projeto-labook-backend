@@ -1,4 +1,5 @@
 import { PostDbModel, PostWithCreatorDbModel } from "../models/Post";
+import { UUID } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class PostDatabase extends BaseDatabase {
@@ -9,6 +10,14 @@ export class PostDatabase extends BaseDatabase {
       .returning("id");
 
     return result.id as string;
+  };
+
+  public getPostById = async (id: UUID): Promise<PostDbModel | undefined> => {
+    return await BaseDatabase.connection
+      .select()
+      .from<PostDbModel>(this.TABLE_POSTS)
+      .where({ id })
+      .first();
   };
 
   public getAllPosts = async (): Promise<PostWithCreatorDbModel[]> => {
@@ -32,5 +41,12 @@ export class PostDatabase extends BaseDatabase {
       );
 
     return result;
+  };
+
+  public updatePost = async (post: PostDbModel): Promise<void> => {
+    await BaseDatabase.connection
+      .update(post)
+      .into(this.TABLE_POSTS)
+      .where("id", post.id);
   };
 }

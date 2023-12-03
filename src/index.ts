@@ -1,9 +1,9 @@
-import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { addRoutes } from "./router";
-import { errorHandler } from "./middleware";
+import express from "express";
 import { HTTP_STATUS } from "./constants/HttpStatus";
+import { errorHandler } from "./middleware";
+import { addRoutes } from "./router";
 
 dotenv.config();
 
@@ -21,5 +21,5 @@ app.listen(Number(process.env.PORT) || 3003, () => {
 });
 
 app.use(function (req, res, next) {
-  res.status(HTTP_STATUS.NOT_FOUND).send({ error: "Não Encontrado." });
+  res.status(HTTP_STATUS.NOT_FOUND).send({ error: "Rota não encontrada." });
 });
