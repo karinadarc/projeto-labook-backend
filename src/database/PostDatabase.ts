@@ -49,4 +49,11 @@ export class PostDatabase extends BaseDatabase {
       .into(this.TABLE_POSTS)
       .where("id", post.id);
   };
+
+  public deletePost = async (post: PostDbModel): Promise<void> => {
+    await BaseDatabase.connection
+      .delete()
+      .from(this.TABLE_POSTS)
+      .where("id", post.id);
+  };
 }

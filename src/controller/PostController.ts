@@ -58,4 +58,21 @@ export class PostController {
       next(error);
     }
   };
+
+  public deletePost = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const id = req.params.id;
+
+      await this.postBussiness.deletePost(id, req.loggedUser as UserModel);
+
+      console.info("INFO: post deleted: %s", id);
+      return res.status(HTTP_STATUS.NO_CONTENT).end();
+    } catch (error) {
+      next(error);
+    }
+  };
 }
