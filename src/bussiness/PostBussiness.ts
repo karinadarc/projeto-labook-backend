@@ -7,7 +7,7 @@ import { GetPostsOutputDTO } from "../dtos/post/get.dto";
 import { UpdatePostInputDTO } from "../dtos/post/update.dto";
 import { ForbidenError, NotFoundError } from "../errors";
 import { Post } from "../models/Post";
-import { UserModel } from "../models/User";
+import { USER_ROLES, UserModel } from "../models/User";
 import { IdService } from "../services/IdService";
 import { UUID } from "../types";
 
@@ -56,12 +56,28 @@ export class PostBussiness {
     const post = Post.fromDatabaseModel(result);
 
     if (post.getCreatorId() !== user.id) {
-      throw new ForbidenError("Somente o autor pode editar o post.");
+      throw new ForbidenError("Somente o autor pode editar o post");
     }
 
     post.setContent(input.content);
     post.setUpdatedAt(new Date().toISOString());
 
     await this.postDatabase.updatePost(post.toDatabaseModel());
+  };
+
+  public deletePost = async (id: UUID, user: UserModel): Promise<void> => {
+    const result = await this.postDatabase.getPostById(id);
+
+    if (!result) {
+      throw new NotFoundError("Post não encontrado.");
+    }
+
+    const post = Post.fromDatabaseModel(result);
+
+    if (post.getCreatorId() !== user.id && user.role !== USER_ROLES.ADMIN) {
+      throw new ForbidenError("Sem permissoes para remover o post");
+    }
+
+    await this.postDatabase.deletePost(post.toDatabaseModel());
   };
 }
